@@ -22,16 +22,18 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 Route::get('/', function () {
     return view('home');
 })->middleware(Authenticate::class);
+ Route::get('/dashboard', [ProductController::class, 'dashboard']);
 
 
 
 // admin dashboard
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/clients', [ProductController::class, 'clients']);
+
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {           // Middleware for user role
-    Route::get('/dashboard', [ProductController::class, 'dashboard']);
+
     Route::get('/talents', [ProductController::class, 'index'])->name('talents.index');
     Route::get('/feed', [ProductController::class, 'feed']);
     Route::get('/tasks', [ProductController::class, 'tasks']);
@@ -40,6 +42,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {           // Middl
     Route::get('/cities', [ProductController::class, 'cities']);
     Route::get('/contact-us', [ProductController::class, 'contact_us']);
     Route::get('/test', [ProductController::class, 'test']);
+
 
     //1.1 post
 
